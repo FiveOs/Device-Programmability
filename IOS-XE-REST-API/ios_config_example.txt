@@ -1,0 +1,126 @@
+csr1000v-2#sh run
+Building configuration...
+
+Current configuration : 3124 bytes
+!
+! Last configuration change at 22:54:20 UTC Mon Mar 21 2016 by devnet
+!
+version 15.6
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+platform console virtual
+!
+hostname csr1000v-2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$q70E$1fR2yBYdjQuFNL1UpSTQV/
+!
+no aaa new-model
+!
+!
+
+
+ip domain name abc.com
+!
+
+!
+subscriber templating
+!
+!         
+!
+multilink bundle-name authenticated
+!
+!
+crypto pki trustpoint TP-self-signed-1945322965
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1945322965
+ revocation-check none
+ rsakeypair TP-self-signed-1945322965
+!
+!
+crypto pki certificate chain TP-self-signed-1945322965
+ certificate self-signed 01
+  3082022B 30820194 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31393435 33323239 3635301E 170D3136 30333231 32323338 
+  31355A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 39343533 
+  32323936 3530819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100A31B 7B62191C AD14C13E 5D74C932 BA19816D 99C76195 C5B8BDCC 17F1328A 
+  A4041AC4 CD36D9E0 152BA4F8 DF950226 83527F5D 6D7F3D49 A4AC5ED8 B259F0DE 
+  70FD0913 C483B3FD 536AEE42 304BF907 D59F56F7 D4B42A8F 595E3516 FAC1E196 
+  7CFAE74F BB6B9C1E 86C9378E BFD08224 27826CFE 0D9579E3 54386BD9 4DF26257 
+  07470203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603 
+  551D2304 18301680 14E76E72 2DD7BFB8 15592277 A83BA934 1091A5AB 41301D06 
+  03551D0E 04160414 E76E722D D7BFB815 592277A8 3BA93410 91A5AB41 300D0609 
+  2A864886 F70D0101 05050003 8181002B 7C4F95E0 BEA1FEB1 5752FCDE 8BC41C0A 
+  09E2EE2E CD70A6BE E2064753 B4663F6A 677412D3 40EF1D44 81D00B5B 01EE436C 
+  BF813EEC 6D499E8E B91BEA88 28813CE0 093470C2 0DCBE6D8 636395ED AFF6950C 
+  898EF386 90D68A92 0C86C9B5 47BE0C1D 5CB7BE64 40E54D60 6F441C5F 898DFE8B 
+  80FE5088 47101766 EFCC402C FBF032
+  	quit
+!
+license udi pid CSR1000V sn 9TPQVIRRGVY
+license boot level ax
+!         
+spanning-tree extend system-id
+!
+username developer privilege 15 secret 5 $1$JnED$UJcfoZysLKh9S7omAENIl/
+!
+redundancy
+!
+!
+!
+!
+interface VirtualPortGroup0
+ ip unnumbered GigabitEthernet1
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet1
+ ip address 10.10.10.11 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3
+ no ip address
+ shutdown
+ negotiation auto
+!
+!
+virtual-service csr_mgmt
+ ip shared host-interface GigabitEthernet1
+ activate
+!
+ip forward-protocol nd
+!
+no ip http server
+ip http secure-server
+ip route 0.0.0.0 0.0.0.0 GigabitEthernet1 10.10.10.254
+ip route 10.10.10.11 255.255.255.255 VirtualPortGroup0
+ip ssh rsa keypair-name ssh-key
+ip ssh version 2
+ip scp server enable
+!
+!
+
+control-plane
+!
+
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+end
+
