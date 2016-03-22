@@ -22,7 +22,9 @@ resource.
 ##### The function "get_token" in xe_restapi_auth.py is used to get the token-id. 
 Simple add "from xe_restapi_auth import *" in the beginning of other scirpt to utilize "get_token" function.
 
-#### 
+## Using the token-id
+Generally, every IOS XE REST API request needs to provide a token-id - it doesn't matter whether the request is a POST, GET, PUT or DELETE. To incorporate a token-id in your request, add an `X-Auth-Token` header that provides the service ticket as its value:
 
-
-
+	 {"X-Auth-Token": "*service_ticket_value*" }
+	 
+The xe_get_hostname.py is an example of using token-id to make a "GET" request.
