@@ -1,0 +1,98 @@
+csr1000v-2#sh virtual-service detail
+Virtual service csr_mgmt detail
+  State                 : Activated
+  Package information
+    Name                : iosxe-remote-mgmt.03.17.00.S.156-1.S-std.ova
+    Path                : bootflash:/iosxe-remote-mgmt.03.17.00.S.156-1.S-std.ova
+    Application
+      Name              : csr_mgmt
+      Installed version : 1.8.1
+      Description       : CSR-MGMT
+    Signing
+      Key type          : Cisco development key
+      Method            : SHA1
+    Licensing
+      Name              : Not Available
+      Version           : Not Available
+
+  Detailed guest status
+    
+----------------------------------------------------------------------
+Process               Status            Uptime           # of restarts
+----------------------------------------------------------------------
+nginx                  UP         0Y 0W 0D 19:21:17        0
+climgr                 UP         0Y 0W 0D 19:21:17        0
+restful_api            UP         0Y 0W 0D 19:21:17        0
+fcgicpa                Down      
+pnscag                 Down      
+pnscdme                Down      
+confd                  Down      
+nes                    Down      
+syncfd                 Down      
+snmp                   Down      
+odm                    Down      
+ciaauthd               Down      
+----------------------------------------------------------------------
+Feature         Status                 Configuration
+----------------------------------------------------------------------
+Restful API   Enabled, UP             port: 55443
+                                      auto-save-timer: 30 seconds
+                                      socket: unix:/usr/local/nginx/csrapi-fcgi.sock;
+
+PNSC          Disabled, Down
+
+DMI           Disabled, DOWN
+
+Network stats:
+ eth0: RX  packets:34828, TX  packets:6
+ eth1: RX  packets:87, TX  packets:60
+
+Coredump file(s): lost+found
+ 
+  Activated profile name: None
+  Resource reservation
+    Disk                : 756 MB
+    Memory              : 512 MB
+    CPU                 : 30% system CPU
+
+  Attached devices
+    Type              Name        Alias            
+    ---------------------------------------------
+    NIC               ieobc_2     ieobc            
+    NIC               dp_2_33     net2             
+    Disk              _rootfs                      
+    Disk              /opt/var                     
+    Disk              /opt/va...                   
+    Serial/shell                  serial0          
+    Serial/aux                    serial1          
+    Serial/Syslog                 serial2          
+    Serial/Trace                  serial3          
+    Watchdog          watchdo...                   
+
+  Network interfaces
+    MAC address             Attached to interface           
+    ------------------------------------------------------
+    54:0E:00:0B:0C:03       ieobc_2                         
+    00:50:56:85:DB:76       VirtualPortGroup33              
+
+  Guest interface
+  ---
+  Interface: eth1
+  ip address: 10.10.10.11/24
+
+  ---
+
+  Guest routes
+  ---
+  Address/Mask                         Next Hop                          Intf.
+-------------------------------------------------------------------------------
+
+  ---
+
+  Resource admission (without profile) : passed
+    Disk space    : 756MB
+    Memory        : 512MB 
+    CPU           : 30% system CPU 
+    VCPUs         : Not specified
+
+
